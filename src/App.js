@@ -1,15 +1,24 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import db from "./fire.js";
 
 class App extends Component {
   state = {
-    counter: 0
+    counter: 2
   };
+
+  componentDidMount() {
+    const counterRef = db.database().ref("/test");
+    counterRef.on("value", snapshot => {
+      this.setState({ counter: snapshot.val() });
+    });
+  }
 
   updateCounter = event => {
     event.preventDefault();
     this.setState({ counter: this.state.counter + 1 });
+    db.database()
+      .ref("/test")
+      .set(this.state.counter + 1);
   };
 
   render() {

@@ -7,5 +7,5 @@ var config = {
   storageBucket: "fhactivities-ba3ac.appspot.com",
   messagingSenderId: "73050194187"
 };
-var fire = firebase.initializeApp(config);
-export default fire;
+var db = firebase.initializeApp(config);
+export default db;
