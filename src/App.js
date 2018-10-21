@@ -7,21 +7,21 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const counterRef = db.database().ref("/test");
+    const counterRef = db.database().ref("/counter");
     counterRef.on("value", snapshot => {
       this.setState({ counter: snapshot.val() });
     });
   }
 
   updateCounter = event => {
-    const counterRef = db.database().ref("/test");
+    const counterRef = db.database().ref("/counter");
 
     event.preventDefault();
     counterRef.set(this.state.counter + 1);
   };
 
   clearCounter = event => {
-    const counterRef = db.database().ref("/test");
+    const counterRef = db.database().ref("/counter");
 
     event.preventDefault();
     counterRef.set(0);
