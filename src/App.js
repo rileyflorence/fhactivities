@@ -3,7 +3,7 @@ import db from "./fire.js";
 
 class App extends Component {
   state = {
-    counter: 2
+    counter: 0
   };
 
   componentDidMount() {
@@ -14,11 +14,17 @@ class App extends Component {
   }
 
   updateCounter = event => {
+    const counterRef = db.database().ref("/test");
+
     event.preventDefault();
-    this.setState({ counter: this.state.counter + 1 });
-    db.database()
-      .ref("/test")
-      .set(this.state.counter + 1);
+    counterRef.set(this.state.counter + 1);
+  };
+
+  clearCounter = event => {
+    const counterRef = db.database().ref("/test");
+
+    event.preventDefault();
+    counterRef.set(0);
   };
 
   render() {
@@ -26,11 +32,14 @@ class App extends Component {
 
     return (
       <div className="App">
-        <p>Counter: {counter}.</p>
+        <h1>Counter: {counter}</h1>
 
-        <form onSubmit={this.updateCounter}>
-          <button type="submit">Add 1!</button>
-        </form>
+        <button type="submit" onClick={this.updateCounter}>
+          Add 1!
+        </button>
+        <button type="submit" onClick={this.clearCounter}>
+          Clear
+        </button>
       </div>
     );
   }
