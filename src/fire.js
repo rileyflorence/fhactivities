@@ -1,4 +1,6 @@
 import firebase from "firebase";
+require("firebase/firestore");
+
 var config = {
   apiKey: "AIzaSyDZdRLW3Mh5YSag1SdHgFuMVzGTNEMA5qk",
   authDomain: "fhactivities-ba3ac.firebaseapp.com",
@@ -7,5 +9,6 @@ var config = {
   storageBucket: "fhactivities-ba3ac.appspot.com",
   messagingSenderId: "73050194187"
 };
-var db = firebase.initializeApp(config);
-export default db;
+
+firebase.initializeApp(config);
+export const db = firebase.firestore();
