@@ -1,26 +1,41 @@
 import React, { Component } from "react";
-import { db } from "./fire.js";
+import db from "./fire.js";
+import SummaryCard from "./SummaryCard.js";
 
 class App extends Component {
   state = {
-<<<<<<< HEAD
-    name: "Nuthin yet..."
-  };
-
-  componentDidMount() {
-    db.doc("courses/online")
-      .get()
-      .then(doc => this.setState({ name: doc.data().name }));
-  }
-
-=======
-    counter: 0
+    counter: "loading...",
+    meSummaries: [],
+    meSummariesPush: [
+      {
+        title: "What's in a Name",
+        description:
+          "Your name is how the world knows you, how much do you know about your name?",
+        ref: 46,
+        thumbnail:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Alaskan_Malamute.jpg/300px-Alaskan_Malamute.jpg"
+      },
+      {
+        title: "What's in a Name2",
+        description:
+          "Your name is how the world knows you, how much do you know about your name?",
+        ref: 46,
+        thumbnail:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Alaskan_Malamute.jpg/300px-Alaskan_Malamute.jpg"
+      }
+    ]
   };
 
   componentDidMount() {
     const counterRef = db.database().ref("/counter");
     counterRef.on("value", snapshot => {
       this.setState({ counter: snapshot.val() });
+    });
+
+    const meSummariesRef = db.database().ref("/meSummaries");
+    meSummariesRef.set(this.state.meSummariesPush);
+    meSummariesRef.on("value", snapshot => {
+      this.setState({ meSummaries: snapshot.val() });
     });
   }
 
@@ -38,22 +53,34 @@ class App extends Component {
     counterRef.set(0);
   };
 
->>>>>>> parent of 31b6d52... Made an array of objects, mapped over it. It's dope.
   render() {
+    const { counter, meSummaries } = this.state;
     return (
       <div className="App">
-<<<<<<< HEAD
-        <h1>{this.state.name}</h1>
-=======
         <h1>Counter: {counter}</h1>
-
         <button type="submit" onClick={this.updateCounter}>
           Add 1!
         </button>
         <button type="submit" onClick={this.clearCounter}>
           Clear
         </button>
->>>>>>> parent of 31b6d52... Made an array of objects, mapped over it. It's dope.
+        <div
+          style={{
+            display: "flex",
+            flexFlow: "wrap row",
+            justifyContent: "center"
+          }}
+        >
+          {meSummaries.map(arrayItem => (
+            <div style={{ width: "350px", margin: "10px" }}>
+              <SummaryCard
+                title={arrayItem.title}
+                summary={arrayItem.description}
+                thumbnail={arrayItem.thumbnail}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
