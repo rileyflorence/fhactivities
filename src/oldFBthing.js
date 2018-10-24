@@ -1,6 +1,3 @@
-import React, { Component } from "react";
-import db from "./firebase";
-
 const makeList = obj => {
   return Object.keys(obj).map(key => {
     const item = obj[key];
@@ -131,5 +128,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;
